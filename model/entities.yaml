@@ -1,133 +1,279 @@
-version: 0.1
+version: 0.2
 status: draft
+updated: 2026-06-29
 entities:
   Project:
     prefix: PRJ
     family: Governance
     description: Top-level initiative or programme.
     required_attributes: [id, name, status, owner, lifecycle_state]
+
   Requirement:
     prefix: REQ
     family: Governance
     description: Functional or non-functional requirement.
     required_attributes: [id, name, description, status, priority, lifecycle_state]
+
   ArchitectureDecision:
     prefix: ADR
     family: Governance
     description: Architecture Decision Record.
     required_attributes: [id, title, status, decision, consequences]
+
   System:
     prefix: SYS
     family: Architecture
     description: Major system such as Network, Storage, Power, Compute, AI Platform.
     required_attributes: [id, name, system_type, owner, lifecycle_state]
+
   Subsystem:
     prefix: SUB
     family: Architecture
     description: Logical subdivision of a System.
     required_attributes: [id, name, parent_system, lifecycle_state]
+
   Capability:
     prefix: CAP
     family: Architecture
     description: Functional capability delivered by one or more systems.
     required_attributes: [id, name, description, lifecycle_state]
+
   Component:
     prefix: CMP
     family: Architecture
     description: Required hardware or software component before vendor/product selection.
     required_attributes: [id, name, component_type, system, criticality, lifecycle_state]
+
   Product:
     prefix: PRD
     family: Procurement
     description: Commercial SKU or purchasable product.
     required_attributes: [id, manufacturer, model, sku, procurement_status]
+
   Vendor:
     prefix: VND
     family: Procurement
     description: Manufacturer, distributor, marketplace, or seller organization.
     required_attributes: [id, name, vendor_type]
+
   Seller:
     prefix: SEL
     family: Procurement
     description: Marketplace seller or direct seller for a Product.
     required_attributes: [id, name, marketplace]
+
+  MarketplaceListing:
+    prefix: MKT
+    family: Procurement
+    description: Marketplace-specific product listing, such as a direct Amazon.in ASIN page.
+    required_attributes: [id, marketplace, product, asin, url, listing_status]
+
+  PriceObservation:
+    prefix: PRICE
+    family: Procurement
+    description: Timestamped observed price for a MarketplaceListing or Product.
+    required_attributes: [id, listing, observed_price, currency, observed_at]
+
+  ProcurementDecision:
+    prefix: PDEC
+    family: Procurement
+    description: Recommendation, rejection, or hold decision for a Product or MarketplaceListing.
+    required_attributes: [id, component, recommended_product, decision_status, rationale]
+
   Asset:
     prefix: AST
     family: PhysicalEstate
     description: Purchased physical or licensed instance of a Product.
     required_attributes: [id, name, product, serial_number, lifecycle_state]
+
   ConfigurationItem:
     prefix: CI
     family: Configuration
     description: Managed operational item in the configuration model.
     required_attributes: [id, name, ci_type, lifecycle_state]
+
   ConfigurationProfile:
     prefix: CFG
     family: Configuration
     description: Desired configuration state for a component, asset, or service.
     required_attributes: [id, name, target, version, lifecycle_state]
+
   Interface:
     prefix: IF
     family: Architecture
     description: Logical or physical interface between entities.
     required_attributes: [id, name, interface_type, owner]
+
   Port:
     prefix: PORT
     family: PhysicalEstate
     description: Physical or logical port on an asset.
     required_attributes: [id, asset, port_label, port_type]
+
   Cable:
     prefix: CAB
     family: PhysicalEstate
     description: Physical interconnect cable.
     required_attributes: [id, cable_type, length, from_endpoint, to_endpoint]
+
   Location:
     prefix: LOC
     family: PhysicalEstate
     description: Site, room, rack, shelf, or logical location.
     required_attributes: [id, name, location_type]
+
   Rack:
     prefix: RACK
     family: PhysicalEstate
     description: Equipment rack or cabinet.
     required_attributes: [id, name, location, rack_units]
+
   PowerCircuit:
     prefix: PWR
     family: PhysicalEstate
     description: UPS, PDU, circuit, or power path.
     required_attributes: [id, name, power_type]
+
+  VLAN:
+    prefix: VLAN
+    family: Network
+    description: Layer-2 virtual LAN or broadcast domain.
+    required_attributes: [id, name, vlan_id, purpose, lifecycle_state]
+
+  IPNetwork:
+    prefix: NET
+    family: Network
+    description: IP subnet, address pool, or routed network.
+    required_attributes: [id, name, cidr, network_role, lifecycle_state]
+
+  FirewallPolicy:
+    prefix: FWPL
+    family: Network
+    description: Firewall rule or security policy controlling traffic.
+    required_attributes: [id, name, source, destination, action, lifecycle_state]
+
+  DNSRecord:
+    prefix: DNS
+    family: Network
+    description: DNS record for internal or external service naming.
+    required_attributes: [id, name, record_type, value, zone]
+
+  DHCPReservation:
+    prefix: DHCP
+    family: Network
+    description: Reserved IP assignment for an asset or interface.
+    required_attributes: [id, asset, mac_address, reserved_ip, network]
+
   Document:
     prefix: DOC
     family: Knowledge
     description: Generated or manually maintained document.
     required_attributes: [id, title, document_type, status]
+
   KnowledgeReference:
     prefix: KNOW
     family: Knowledge
     description: Datasheet, manual, firmware page, support portal, or external reference.
     required_attributes: [id, title, reference_type, url]
+
+  Alias:
+    prefix: ALIAS
+    family: Knowledge
+    description: Alternative name, synonym, search term, or Logseq alias for an entity.
+    required_attributes: [id, target_entity, alias]
+
+  Tag:
+    prefix: TAG
+    family: Knowledge
+    description: Classification tag used for search, grouping, and projection.
+    required_attributes: [id, name, tag_type]
+
+  PageNameRule:
+    prefix: PNR
+    family: Knowledge
+    description: Rule for generating page names in Logseq, GitHub, Coda, or other projections.
+    required_attributes: [id, target_entity_type, rule, projection_target]
+
   Risk:
     prefix: RISK
     family: Governance
     description: Risk register item.
     required_attributes: [id, title, severity, probability, status]
+
   Issue:
     prefix: ISSUE
     family: Governance
     description: Active issue or blocker.
     required_attributes: [id, title, severity, status]
+
   Test:
     prefix: TEST
     family: Validation
     description: Validation, acceptance, benchmark, or operational test.
     required_attributes: [id, name, test_type, expected_result, status]
+
+  ViewDefinition:
+    prefix: VIEW
+    family: Generation
+    description: Definition of a generated view such as a workbook sheet, Coda table, or Markdown register.
+    required_attributes: [id, name, view_type, source_entities, projection_target]
+
+  ViewColumn:
+    prefix: VC
+    family: Generation
+    description: Column definition for generated tabular views.
+    required_attributes: [id, view, name, source_attribute, position]
+
+  Projection:
+    prefix: PROJ
+    family: Generation
+    description: Mapping from canonical model records into an external target or generated artifact.
+    required_attributes: [id, source_entity, projection_target, projection_status]
+
+  ProjectionTarget:
+    prefix: PTGT
+    family: Generation
+    description: Target platform or artifact class for projections, such as Excel, Coda, Logseq, GitHub Markdown, or diagram.
+    required_attributes: [id, name, target_type]
+
+  GenerationRule:
+    prefix: GRULE
+    family: Generation
+    description: Deterministic rule for generating documents, workbooks, views, diagrams, or records from the model.
+    required_attributes: [id, name, rule_type, input_entities, output_artifact]
+
   Procedure:
     prefix: PROC
     family: Operations
     description: SOP, runbook, maintenance procedure, or recovery procedure.
     required_attributes: [id, title, procedure_type, status]
+
   Change:
     prefix: CHG
     family: Operations
     description: Controlled change record.
     required_attributes: [id, title, change_type, status]
+
+  MaintenanceEvent:
+    prefix: MAINT
+    family: Operations
+    description: Scheduled or completed maintenance activity against an asset, system, or configuration item.
+    required_attributes: [id, title, target, maintenance_type, status]
+
+  Incident:
+    prefix: INC
+    family: Operations
+    description: Operational incident, failure, outage, or degradation event.
+    required_attributes: [id, title, severity, affected_system, status]
+
+  BackupJob:
+    prefix: BKP
+    family: Operations
+    description: Scheduled or executed backup job for data, configuration, or artifact preservation.
+    required_attributes: [id, name, backup_scope, schedule, status]
+
+  RestoreTest:
+    prefix: RTEST
+    family: Operations
+    description: Disaster-recovery or backup-restore validation exercise.
+    required_attributes: [id, name, backup_job, expected_result, status]
