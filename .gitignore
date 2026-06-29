@@ -1,0 +1,33 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Local exports
+/export/
+/tmp/
+
+# Secrets and credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.ovpn
+.env*
+secrets/
+
+# Office lock files
+~$*.docx
+~$*.xlsx
+~$*.pptx
