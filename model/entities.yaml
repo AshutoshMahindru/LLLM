@@ -1,0 +1,133 @@
+version: 0.1
+status: draft
+entities:
+  Project:
+    prefix: PRJ
+    family: Governance
+    description: Top-level initiative or programme.
+    required_attributes: [id, name, status, owner, lifecycle_state]
+  Requirement:
+    prefix: REQ
+    family: Governance
+    description: Functional or non-functional requirement.
+    required_attributes: [id, name, description, status, priority, lifecycle_state]
+  ArchitectureDecision:
+    prefix: ADR
+    family: Governance
+    description: Architecture Decision Record.
+    required_attributes: [id, title, status, decision, consequences]
+  System:
+    prefix: SYS
+    family: Architecture
+    description: Major system such as Network, Storage, Power, Compute, AI Platform.
+    required_attributes: [id, name, system_type, owner, lifecycle_state]
+  Subsystem:
+    prefix: SUB
+    family: Architecture
+    description: Logical subdivision of a System.
+    required_attributes: [id, name, parent_system, lifecycle_state]
+  Capability:
+    prefix: CAP
+    family: Architecture
+    description: Functional capability delivered by one or more systems.
+    required_attributes: [id, name, description, lifecycle_state]
+  Component:
+    prefix: CMP
+    family: Architecture
+    description: Required hardware or software component before vendor/product selection.
+    required_attributes: [id, name, component_type, system, criticality, lifecycle_state]
+  Product:
+    prefix: PRD
+    family: Procurement
+    description: Commercial SKU or purchasable product.
+    required_attributes: [id, manufacturer, model, sku, procurement_status]
+  Vendor:
+    prefix: VND
+    family: Procurement
+    description: Manufacturer, distributor, marketplace, or seller organization.
+    required_attributes: [id, name, vendor_type]
+  Seller:
+    prefix: SEL
+    family: Procurement
+    description: Marketplace seller or direct seller for a Product.
+    required_attributes: [id, name, marketplace]
+  Asset:
+    prefix: AST
+    family: PhysicalEstate
+    description: Purchased physical or licensed instance of a Product.
+    required_attributes: [id, name, product, serial_number, lifecycle_state]
+  ConfigurationItem:
+    prefix: CI
+    family: Configuration
+    description: Managed operational item in the configuration model.
+    required_attributes: [id, name, ci_type, lifecycle_state]
+  ConfigurationProfile:
+    prefix: CFG
+    family: Configuration
+    description: Desired configuration state for a component, asset, or service.
+    required_attributes: [id, name, target, version, lifecycle_state]
+  Interface:
+    prefix: IF
+    family: Architecture
+    description: Logical or physical interface between entities.
+    required_attributes: [id, name, interface_type, owner]
+  Port:
+    prefix: PORT
+    family: PhysicalEstate
+    description: Physical or logical port on an asset.
+    required_attributes: [id, asset, port_label, port_type]
+  Cable:
+    prefix: CAB
+    family: PhysicalEstate
+    description: Physical interconnect cable.
+    required_attributes: [id, cable_type, length, from_endpoint, to_endpoint]
+  Location:
+    prefix: LOC
+    family: PhysicalEstate
+    description: Site, room, rack, shelf, or logical location.
+    required_attributes: [id, name, location_type]
+  Rack:
+    prefix: RACK
+    family: PhysicalEstate
+    description: Equipment rack or cabinet.
+    required_attributes: [id, name, location, rack_units]
+  PowerCircuit:
+    prefix: PWR
+    family: PhysicalEstate
+    description: UPS, PDU, circuit, or power path.
+    required_attributes: [id, name, power_type]
+  Document:
+    prefix: DOC
+    family: Knowledge
+    description: Generated or manually maintained document.
+    required_attributes: [id, title, document_type, status]
+  KnowledgeReference:
+    prefix: KNOW
+    family: Knowledge
+    description: Datasheet, manual, firmware page, support portal, or external reference.
+    required_attributes: [id, title, reference_type, url]
+  Risk:
+    prefix: RISK
+    family: Governance
+    description: Risk register item.
+    required_attributes: [id, title, severity, probability, status]
+  Issue:
+    prefix: ISSUE
+    family: Governance
+    description: Active issue or blocker.
+    required_attributes: [id, title, severity, status]
+  Test:
+    prefix: TEST
+    family: Validation
+    description: Validation, acceptance, benchmark, or operational test.
+    required_attributes: [id, name, test_type, expected_result, status]
+  Procedure:
+    prefix: PROC
+    family: Operations
+    description: SOP, runbook, maintenance procedure, or recovery procedure.
+    required_attributes: [id, title, procedure_type, status]
+  Change:
+    prefix: CHG
+    family: Operations
+    description: Controlled change record.
+    required_attributes: [id, title, change_type, status]
